@@ -48,8 +48,8 @@ def Randy_loader(folder):
     palette = None
 
     #preprocess
-    img = img / img[:, :, [150]]
-    img[np.isnan(img)] = 0
+    #img = img / img[:, :, [150]]
+    #img[np.isnan(img)] = 0
     
     return img, gt, rgb_bands, ignored_labels, label_values, palette
 

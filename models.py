@@ -65,6 +65,15 @@ def get_model(name, **kwargs):
         lr = kwargs.setdefault("learning_rate", 0.001)
         optimizer = optim.Adam(model.parameters(), lr=lr)
         criterion = nn.CrossEntropyLoss(weight=kwargs["weights"])
+    elif name == "SimpleHSICNN":
+        kwargs.setdefault("epoch", 1)  #200
+        kwargs.setdefault("batch_size", 100)
+        patch_size = kwargs.setdefault("patch_size", 3)  #5
+        center_pixel = True
+        model = SimpleHSICNN(n_bands, n_classes)
+        lr = kwargs.setdefault("learning_rate", 0.001)
+        optimizer = optim.Adam(model.parameters(), lr=lr)
+        criterion = nn.CrossEntropyLoss(weight=kwargs["weights"])
     elif name == "chen":
         patch_size = kwargs.setdefault("patch_size", 27)
         center_pixel = True
@@ -1117,7 +1126,7 @@ def train(
             scheduler.step()
 
         # Save the weights
-        if e % save_epoch == 0:
+        if epoch==1 or e % save_epoch == 0:
             save_model(
                 net,
                 camel_to_snake(str(net.__class__.__name__)),
@@ -1240,3 +1249,53 @@ def val(net, data_loader, device="cpu", supervision="full"):
                     accuracy += out.item() == pred.item()
                     total += 1
     return accuracy / total
+
+
+class SimpleHSICNN(nn.Module):
+
+    @staticmethod
+    def weight_init(m):
+        if isinstance(m, nn.Linear) or isinstance(m, nn.Conv3d):
+            init.kaiming_uniform_(m.weight)
+            init.zeros_(m.bias)
+
+    def __init__(self, in_channels, n_classes):
+        super(SimpleHSICNN, self).__init__()
+        
+        # Define the convolutional layers
+        self.conv1 = nn.Conv1d(in_channels, 64, kernel_size=3, padding=1)
+        self.conv2 = nn.Conv1d(64, 128, kernel_size=3, padding=1)
+        self.conv3 = nn.Conv1d(128, 256, kernel_size=3, padding=1)
+
+        # Adjust the size of the fully connected layer input based on your flattened tensor size
+        # This size depends on the output size of your last conv/pooling layers
+        self.fc1 = nn.Linear(256 * 1, 128)  # 'some_length' needs to be calculated
+        self.fc2 = nn.Linear(128, n_classes)
+
+        self.apply(self.weight_init)
+
+
+    def forward(self, x):
+        # Reshape the input tensor
+        # Flatten the spatial dimensions and keep the spectral bands as channels
+        # New shape: [batch_size, spectral_bands, height * width]
+        x = x.view(x.size(0), x.size(2), -1)
+
+        # Apply convolutional layers with ReLU and max pooling
+        x = F.relu(self.conv1(x))
+        x = F.max_pool1d(x, kernel_size=2, stride=2)
+
+        x = F.relu(self.conv2(x))
+        x = F.max_pool1d(x, kernel_size=2, stride=2)
+
+        x = F.relu(self.conv3(x))
+        x = F.max_pool1d(x, kernel_size=2, stride=2)
+
+        # Flatten the output for the fully connected layers
+        x = torch.flatten(x, 1)
+
+        # Fully connected layers
+        x = F.relu(self.fc1(x))
+        x = self.fc2(x)
+
+        return x

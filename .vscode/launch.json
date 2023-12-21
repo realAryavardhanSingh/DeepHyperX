@@ -86,6 +86,28 @@
             "args": ["--model", "nn_TR_TS", "--dataset", "Randy02", "--training_sample", "0"]
         },
 
+        
+        {
+            "name": "Python: SimpleHSICNN_TR",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "SimpleHSICNN_TR_TS", "--dataset", "Randy03", "--training_sample", "0.9"]
+        },
+
+        {
+            "name": "Python: SimpleHSICNN_TS",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "SimpleHSICNN_TR_TS", "--dataset", "Randy04", "--training_sample", "0"]
+        },
+
+
         {
             "name": "Python: lee_TR",
             "type": "python",

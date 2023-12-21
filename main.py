@@ -506,11 +506,11 @@ for run in range(N_RUNS):
                 batch_size=hyperparams["batch_size"],
             )
 
-            print(hyperparams)
             print("Network :")
             with torch.no_grad():
                 for input, _ in train_loader:
                     break
+                print('input_size =', input.size())
                 summary(model.to(hyperparams["device"]), input.size()[1:])
 
             try:
