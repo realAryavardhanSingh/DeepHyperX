@@ -1,0 +1,12 @@
+numpy
+spectral
+scipy
+tqdm
+visdom
+seaborn
+scikit-learn
+scikit-image
+matplotlib
+torchsummary
+joblib
+torch

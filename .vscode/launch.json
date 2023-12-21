@@ -1,0 +1,136 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        
+
+
+        {
+            "name": "Python: Plain",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+
+        {
+            "name": "Python: Test2",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "twoLayer", "--dataset", "Randy02"]
+        },
+
+        {
+            "name": "Python: SVM",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "SVM"]
+        },
+
+        {
+            "name": "Python: RandomForest",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "randomForest"]
+        },
+
+        {
+            "name": "Python: CNN1d_TR",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "hu_TR_TS", "--dataset", "Randy01"]
+        },
+
+        {
+            "name": "Python: CNN1d_TS",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "hu_TR_TS", "--dataset", "Randy02", "--training_sample", "0"]
+        },
+
+        {
+            "name": "Python: nn_TR",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "nn_TR_TS", "--dataset", "Randy01", "--training_sample", "0.01"]
+        },
+
+        {
+            "name": "Python: nn_TS",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "nn_TR_TS", "--dataset", "Randy02", "--training_sample", "0"]
+        },
+
+        {
+            "name": "Python: lee_TR",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "lee_TR_TS", "--dataset", "Randy01", "--training_sample", "0.01"]
+        },
+
+        {
+            "name": "Python: lee_TS",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "lee_TR_TS", "--dataset", "Randy02", "--training_sample", "0"]
+        },
+
+        {
+            "name": "Python: Randy_RF_TR",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "randomForest_TR_TS", "--dataset", "Randy01", "--training_sample", "0.01"]
+        },
+
+        {
+            "name": "Python: Randy_RF_TS",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "args": ["--model", "randomForest_TR_TS", "--dataset", "Randy02", "--training_sample", "0"]
+        }
+        
+    ]
+}
+
+
+/*
+python -m visdom.server
+http://localhost:8097
+*/
